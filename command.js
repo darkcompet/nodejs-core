@@ -12,7 +12,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.DkCommands = void 0;
 const node_util_1 = __importDefault(require("node:util"));
 const exec = node_util_1.default.promisify(require('node:child_process').exec);
 const build_config_1 = __importDefault(require("../nodejs-core/build-config"));
@@ -36,4 +35,4 @@ class DkCommands {
         });
     }
 }
-exports.DkCommands = DkCommands;
+exports.default = DkCommands;
