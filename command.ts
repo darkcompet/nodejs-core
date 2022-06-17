@@ -1,7 +1,9 @@
 import util from 'node:util';
-const exec = util.promisify(require('node:child_process').exec);
-
+import child_process from 'node:child_process';
 import DkBuildConfig from "../nodejs-core/build-config";
+
+// Execute command async
+const exec = util.promisify(child_process.exec);
 
 // For execute command line in system.
 export default class DkCommands {
@@ -18,7 +20,6 @@ export default class DkCommands {
 		if (DkBuildConfig.DEBUG) {
 			console.log(`Run command: ${command}`);
 		}
-
 		return await exec(command);
 	}
 }
