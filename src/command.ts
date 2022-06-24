@@ -1,10 +1,10 @@
-const util = require('node:util');
-const exec = util.promisify(require('node:child_process').exec);
+import util from 'node:util';
+const execAsync = util.promisify(require('node:child_process').exec);
 
-const DkBuildConfig = require("../nodejs-core/build-config");
+import { DkBuildConfig } from './build-config';
 
 // For execute command line in system.
-class DkCommands {
+export class DkCommands {
 	/**
 	 * Run a command in async. Caller should use `await` when call this.
 	 *
@@ -14,13 +14,11 @@ class DkCommands {
 	 * Caller can access to string when succeed via `result.stdout`.
 	 * And access to string when failed via `result.stderr`.
 	 */
-	static async RunAsync(command) {
+	static async RunAsync(command: string) {
 		if (DkBuildConfig.DEBUG) {
-			console.log(`Run command: ${command}`);
+			console.log(`Run command: ${command.trim()}`);
 		}
 
-		return await exec(command);
+		return await execAsync(command);
 	}
 }
-
-module.exports = DkCommands;
