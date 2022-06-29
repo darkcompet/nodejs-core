@@ -4,7 +4,7 @@ const execAsync = util.promisify(require('node:child_process').exec);
 import { DkBuildConfig } from './build-config';
 
 // For execute command line in system.
-export class DkCommands {
+export class DkCommand {
 	/**
 	 * Run a command in async. Caller should use `await` when call this.
 	 *
