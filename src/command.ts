@@ -33,4 +33,49 @@ export class DkCommand {
 			};
 		}
 	}
+
+	static async IsFileExisted(filePath: string): Promise<boolean> {
+		const result = await this.RunAsync(`
+			if [[ -f "${filePath}" ]]; then
+				echo "true";
+			else
+				echo "false";
+			fi
+		`);
+
+		return result.stdout?.trim() == "true";
+	}
+
+	static async IsDirectoryExisted(dirPath: string): Promise<boolean> {
+		const result = await this.RunAsync(`
+			if [[ -d "${dirPath}" ]]; then
+				echo "true";
+			else
+				echo "false";
+			fi
+		`);
+
+		return result.stdout?.trim() == "true";
+	}
+
+	/**
+	 * By using `mkdir` command, this create directory recursively (option -p) if not exist.
+	 *
+	 * @param dirPath
+	 * @returns
+	 */
+	static async MkDirs(dirPath: string): Promise<RunCommandResult> {
+		return await this.RunAsync(`mkdir -p ${dirPath};`);
+	}
+
+	/**
+	 * By using `mv` command, this move file/dir from source to destination.
+	 *
+	 * @param srcPath
+	 * @param dstPath
+	 * @returns
+	 */
+	static async MoveFiles(srcPath: string, dstPath: string): Promise<RunCommandResult> {
+		return await this.RunAsync(`mv ${srcPath} ${dstPath};`);
+	}
 }

@@ -1,4 +1,6 @@
 
-export class DkBuildConfig {
-	static readonly DEBUG = process.env.DEBUG === "true";
+class _BuildConfig {
+	readonly DEBUG = process.env.DEBUG === "true";
 }
+
+export const DkBuildConfig = new _BuildConfig();
