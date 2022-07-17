@@ -1,5 +1,5 @@
 
 export interface RunCommandResult {
-	stdout?: string|null;
-	stderr?: string|null;
+	stdout?: string|undefined|null;
+	stderr?: string|undefined|null;
 }
