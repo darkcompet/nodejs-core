@@ -23,7 +23,7 @@ export default class DkFiles {
 	 * to make more options, for eg,. fs.constants.R_OK | fs.constants.W_OK | fs.constants.X_OK
 	 * @returns
 	 */
-	static async Exists(path: string, mode?: number): Promise<boolean> {
+	static async ExistsAsync(path: string, mode?: number): Promise<boolean> {
 		try {
 			await fsPromises.access(path, mode);
 			return true;
@@ -43,7 +43,7 @@ export default class DkFiles {
 	 *
 	 * @experimental
 	 */
-	static async __CopyDir(srcDirPath: string, dstDirPath: string, option?: fs.CopyOptions): Promise<boolean> {
+	static async __CopyDirAsync(srcDirPath: string, dstDirPath: string, option?: fs.CopyOptions): Promise<boolean> {
 		try {
 			fsPromises.cp(srcDirPath, dstDirPath, option);
 			return true;
@@ -54,18 +54,49 @@ export default class DkFiles {
 	}
 
 	/**
-	 * Make new directory recursively if not exist.
+	 * Make new directory recursively if not exist, or throw exception if failed.
 	 *
 	 * @param dirPath
 	 * @returns
 	 */
-	static async MkDirs(dirPath: string): Promise<boolean> {
+	static async MkDirsOrThrowAsync(dirPath: string): Promise<void> {
 		try {
 			fsPromises.mkdir(dirPath, { recursive: true });
-			return true;
 		}
 		catch (e: any) {
-			return false;
+			throw e;
+		}
+	}
+
+	/**
+	 * Read content from given filePath, or throw exception if failed.
+	 *
+	 * @param filePath
+	 * @returns File content if succeed. Otherwise return null.
+	 */
+	static async ReadFileOrThrowAsync(filePath: string): Promise<string> {
+		try {
+			const buffer = await fsPromises.readFile(filePath);
+			return buffer.toString();
+		}
+		catch (e: any) {
+			throw e;
+		}
+	}
+
+	/**
+	 * Write content to given filePath, or throw exception if failed.
+	 *
+	 * @param filePath
+	 * @param content
+	 * @returns True if succeed. Otherwise return false.
+	 */
+	static async WriteFileOrThrowAsync(filePath: string, content: string): Promise<void> {
+		try {
+			await fsPromises.writeFile(filePath, content);
+		}
+		catch (e: any) {
+			throw e;
 		}
 	}
 }
