@@ -14,7 +14,7 @@ import * as fs from "fs";
  *
  * Ref: https://nodejs.org/api/fs.html
  */
-export default class DkFiles {
+export class DkFiles {
 	/**
 	 * Check whether given path exists (visible to the calling process).
 	 *
