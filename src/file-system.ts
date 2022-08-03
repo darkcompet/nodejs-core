@@ -69,10 +69,10 @@ export class DkFiles {
 	}
 
 	/**
-	 * Read content from given filePath, or throw exception if failed.
+	 * Read file content from given filePath, or throw exception if failed.
 	 *
 	 * @param filePath
-	 * @returns File content if succeed. Otherwise return null.
+	 * @returns
 	 */
 	static async ReadFileOrThrowAsync(filePath: string): Promise<string> {
 		try {
@@ -89,7 +89,7 @@ export class DkFiles {
 	 *
 	 * @param filePath
 	 * @param content
-	 * @returns True if succeed. Otherwise return false.
+	 * @returns
 	 */
 	static async WriteFileOrThrowAsync(filePath: string, content: string): Promise<void> {
 		try {
