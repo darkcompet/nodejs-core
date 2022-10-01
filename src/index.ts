@@ -5,6 +5,8 @@
 /// Otherwise the app must import with full path to that class,
 /// for eg,. import DkFiles from @darkcompet/nodejs-core/dist/file-system
 
+export * from './array';
+export * from './object';
 export * from './build-config';
 export * from './commander';
 export * from './file-system';
