@@ -14,8 +14,6 @@ export class DkUnixShell {
 			fi
 		`);
 
-		console.log("---> file existed: " + result.stdout);
-
 		return result.stdout?.trim() == "true";
 	}
 

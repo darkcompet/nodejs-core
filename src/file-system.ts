@@ -15,6 +15,14 @@ import * as fs from "fs";
  * Ref: https://nodejs.org/api/fs.html
  */
 export class DkFiles {
+	static async IsFile(path: string): Promise<boolean> {
+		return (await fsPromises.stat(path)).isFile();
+	}
+
+	static async IsDirectory(path: string): Promise<boolean> {
+		return (await fsPromises.stat(path)).isDirectory();
+	}
+
 	/**
 	 * Check whether given path exists (visible to the calling process).
 	 *
