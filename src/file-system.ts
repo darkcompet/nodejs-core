@@ -15,11 +15,11 @@ import * as fs from "fs";
  * Ref: https://nodejs.org/api/fs.html
  */
 export class DkFiles {
-	static async IsFile(path: string): Promise<boolean> {
+	static async IsFileAsync(path: string): Promise<boolean> {
 		return (await fsPromises.stat(path)).isFile();
 	}
 
-	static async IsDirectory(path: string): Promise<boolean> {
+	static async IsDirectoryAsync(path: string): Promise<boolean> {
 		return (await fsPromises.stat(path)).isDirectory();
 	}
 
@@ -38,41 +38,6 @@ export class DkFiles {
 		}
 		catch (e: any) {
 			return false;
-		}
-	}
-
-	/**
-	 * Copy source folder to destination folder.
-	 *
-	 * @param srcDirPath
-	 * @param dstDirPath
-	 * @param option
-	 * @returns
-	 *
-	 * @experimental
-	 */
-	static async __CopyDirAsync(srcDirPath: string, dstDirPath: string, option?: fs.CopyOptions): Promise<boolean> {
-		try {
-			fsPromises.cp(srcDirPath, dstDirPath, option);
-			return true;
-		}
-		catch (e: any) {
-			return false;
-		}
-	}
-
-	/**
-	 * Make new directory recursively if not exist, or throw exception if failed.
-	 *
-	 * @param dirPath
-	 * @returns
-	 */
-	static async MkDirsOrThrowAsync(dirPath: string): Promise<void> {
-		try {
-			fsPromises.mkdir(dirPath, { recursive: true });
-		}
-		catch (e: any) {
-			throw e;
 		}
 	}
 
@@ -102,6 +67,56 @@ export class DkFiles {
 	static async WriteFileOrThrowAsync(filePath: string, content: string): Promise<void> {
 		try {
 			await fsPromises.writeFile(filePath, content);
+		}
+		catch (e: any) {
+			throw e;
+		}
+	}
+
+	/**
+	 * Copy source folder to destination folder.
+	 *
+	 * @param srcDirPath
+	 * @param dstDirPath
+	 * @param option
+	 * @returns
+	 *
+	 * @experimental
+	 */
+	private static async _CopyDirAsync(srcDirPath: string, dstDirPath: string, option?: fs.CopyOptions): Promise<boolean> {
+		try {
+			fsPromises.cp(srcDirPath, dstDirPath, option);
+			return true;
+		}
+		catch (e: any) {
+			return false;
+		}
+	}
+
+	/**
+	 * Read file content from given filePath, or throw exception if failed.
+	 *
+	 * @param filePath
+	 * @returns
+	 */
+	static async ReadDirOrThrowAsync(path: string): Promise<string[]> {
+		try {
+			return await fsPromises.readdir(path);
+		}
+		catch (e) {
+			throw e;
+		}
+	}
+
+	/**
+	 * Make new directory recursively if not exist, or throw exception if failed.
+	 *
+	 * @param dirPath
+	 * @returns
+	 */
+	static async MkDirsOrThrowAsync(dirPath: string): Promise<void> {
+		try {
+			fsPromises.mkdir(dirPath, { recursive: true });
 		}
 		catch (e: any) {
 			throw e;
